@@ -6,9 +6,9 @@
   <body>
     <?php
 
-      $a = $_POST['a'];
-      $b = $_POST['b'];
-      $c = $_POST['c'];
+      $a = $_GET['a'];
+      $b = $_GET['b'];
+      $c = $_GET['c'];
 
           
       // 0x^2 + 0x + 0 = 0
