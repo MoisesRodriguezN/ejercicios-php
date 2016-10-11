@@ -29,7 +29,7 @@ terminado de introducir los datos cuando meta un número negativo.-->
       
     ?>
       <form action="index.php" method="get">
-        Número <input type="number" name="numeroIntro"><br>
+        Número <input type="number" autofocus name="numeroIntro"><br>
         <input type="hidden" name="suma" value="<?php echo $suma; ?>">
         <input type="hidden" name="cuentaNumeros" value="<?php echo $cuentaNumeros; ?>">
         <input type="submit" value="Aceptar">
