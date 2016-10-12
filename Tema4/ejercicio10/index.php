@@ -7,7 +7,8 @@ terminado de introducir los datos cuando meta un número negativo.-->
     <meta charset="UTF-8">
   </head>
   <body>
-    <div>Introduce un número</div>
+    <div>Introduce números. Para terminar untroduce un núemero negativo <br>
+    y será calculada la media.</div>
     
     <?php
       $numerosIntroducidos = $_GET['numeroIntro'];
