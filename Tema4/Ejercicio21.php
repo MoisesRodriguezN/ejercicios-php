@@ -8,47 +8,64 @@
   <body>
    
     <?php
-        $numeroIntroducido = $_GET['numeros'];  
+        $numeroIntroducido = $_GET['numero'];  
         $cuentaNumeros = $_GET['cuentaNumeros'];
         $sumaImpares = $_GET['sumaImpares'];
-        $mayorPar = $_GET['mayorPar'];
         $cuentaImpares = $_GET['cuentaImpares'];
+        $mayorPar = $_GET['mayorPar'];
+        
        
-      if ($numeroIntroducido < 0) {
-        echo "El mayor de los pares es: ", $mayorPar;
-        echo "Se han introducido: ", $cuentaNumeros, " números";
-        echo "La media de los números impares es: ", ($sumaImpares/$cuentaImpares);
-      }else{
         if (!isset($numeroIntroducido)){
-          ?>
-          <form action="Ejercicio21.php" method="get">
-            Número <input type="number" name="numeros"><br>
-            <input type="hidden" name="cuentaNumeros" value="<?php echo $cuentaNumeros; ?>">
-            <input type="hidden" name="sumaImpares" value="<?php echo $sumaImpares; ?>">
-            <input type="hidden" name="cuentaImpares" value="<?php echo $cuentaImpares; ?>">
-            <input type="hidden" name="mayorPar" value="<?php echo $mayorPar; ?>">
-            <input type="submit" value="Aceptar">
-          </form>
-          <?php
-        }else{   
-          do {  
-            $cuentaNumeros++;  //Se cuenta la cantidad de números introducidos 
-            if ($numeroIntroducido %2!=0){
-              $numeroIntroducido %2;
-              $sumaImpares += $numeroIntroducido;
-              $cuentaImpares++;
-            //Se suman en "sumaImpares" los numeros introducidos impares
-            //Se cuentan los números impares para desues hacer la media
+          $cuentaNumeros = 0;
+          $sumaImpares = 0;
+          $cuentaImpares = 0;
+          $mayorPar = PHP_INT_MIN;
+        }
+        
+        if ($numeroIntroducido < 0) {
+          // Numero negativo
+          if($cuentaNumeros == 0){
+            echo "No se han introducido números";
+          }else{
+            echo "Se han introducido: ", $cuentaNumeros, " números <br>";
+            echo "La media de los números impares es: ", ($sumaImpares/$cuentaImpares) , "<br>";
+            echo "El mayor de los pares es: ", $mayorPar, "<br>";
+          }
+          
+          
+        } else if (isset($numeroIntroducido) && $numeroIntroducido >= 0) {
+          $cuentaNumeros++; 
 
-            } else {
-              if ($numeroIntroducido > $mayorPar) {
-                 $mayorPar = $numeroIntroducido;
-              }
+
+          if ($numeroIntroducido %2!=0){
+            // Impar
+            $sumaImpares += $numeroIntroducido;
+            $cuentaImpares++;
+          //Se suman en "sumaImpares" los numeros introducidos impares
+          //Se cuentan los números impares para desues hacer la media
+
+          } else {
+            // Par
+            if ($numeroIntroducido > $mayorPar) {
+               $mayorPar = $numeroIntroducido;
             }
-          } while ($numeroIntroducido >=0);
+          }
+
+        }
+        
+        if ($numeroIntroducido >=0 || !isset($numeroIntroducido)) {
+          ?>
+            <form action="Ejercicio21.php" method="get">
+              Número <input type="number" name="numero"><br>
+              <input type="hidden" name="cuentaNumeros" value="<?php echo $cuentaNumeros; ?>">
+              <input type="hidden" name="sumaImpares" value="<?php echo $sumaImpares; ?>">
+              <input type="hidden" name="cuentaImpares" value="<?php echo $cuentaImpares; ?>">
+              <input type="hidden" name="mayorPar" value="<?php echo $mayorPar; ?>">
+              <input type="submit" value="Aceptar">
+            </form>
+            <?php
         }
        
-      }
     ?>
   </body>
 </html>
