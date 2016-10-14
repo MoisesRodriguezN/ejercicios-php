@@ -29,13 +29,13 @@
         $arrayNumeros = explode(" ", $numeros);
         $arrayNumeros2 = $arrayNumeros;
         
-        // MUestra array original
+        // Muestra array original
         echo "EL array introducido es : <br>";
         foreach ($arrayNumeros as $valor) {
           echo $valor , " ";
         }
         echo "<br>";
-        //Rota array
+        //Rota array a la derecha
         $posUltimo = count($arrayNumeros)-1;
         $ultimo = $arrayNumeros[$posUltimo];
         for ($i = $posUltimo; $i > 0; $i--){
@@ -43,7 +43,7 @@
         }
         $arrayNumeros[0] = $ultimo;
         
-       /* Rotar 2 veces
+       /* Rotar 2 veces a a la derecha
         $posUltimo = count($arrayNumeros)-1;
         $ultimo = $arrayNumeros[$posUltimo];
         for ($i = $posUltimo; $i > 0; $i--){
@@ -51,6 +51,7 @@
         }
         $arrayNumeros[0] = $ultimo;
         */
+        
         //Rota array a la izquierda
         $posUltimo = count($arrayNumeros2);
         $primero = $arrayNumeros2[1];
