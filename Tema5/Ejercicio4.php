@@ -37,8 +37,11 @@
           //Muestra el array modicado
           if($arrayNumeros[$i] == $n){
             $arrayNumeros[$i]= $n2;
+            echo "<span style=\"color: red;\">" , $arrayNumeros[$i], " ", "</span>";
+          }else{
+            echo  $arrayNumeros[$i], " ";
           }
-          echo $arrayNumeros[$i], " ";
+         
         }
         
       }
