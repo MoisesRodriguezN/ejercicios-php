@@ -15,6 +15,7 @@
       if (!isset($n)){
         //Primera visita
         $numeros = "";
+       
       }
 
         for ($i = 0; $i < 100; $i++) {
@@ -23,7 +24,9 @@
           $numeros .= " " . $numeroAleatorio;
         }
         $arrayNumeros = explode(" ", $numeros);
-        
+        echo "<br>";
+        echo "ARRAY ORIGINAL";
+        echo "<br> <br>";
         for($i = 0; $i < 100; $i++){
           //Muestra el array original
           echo $arrayNumeros[$i] , " ";
@@ -31,8 +34,9 @@
               
       if(isset($n)){
         //Segunda y posteriores visitas
-        echo "<br>";
-        
+        echo "<br> <br>";
+        echo "ARRAY MODIFICADO";
+        echo "<br> <br>";
         for($i = 0; $i < 100; $i++){
           //Muestra el array modicado
           if($arrayNumeros[$i] == $n){
@@ -45,17 +49,17 @@
         }
         
       }
-       
-      ?>  
-        <form action="Ejercicio4.php" method="get">
-        Número a sustituir <input type="number" name="n"><br>
-        Número nuevo <input type="number" name="n2"><br>
-        <input type="hidden" name="numeros" value="<?php echo $numeros ?>">
-        <input type="submit" value="Aceptar">
-        </form>
-      <?php  
       
-  
+      if(!isset($n)){
+        ?>  
+          <form action="Ejercicio4.php" method="get">
+          Número a sustituir <input type="number" name="n"><br>
+          Número nuevo <input type="number" name="n2"><br>
+          <input type="hidden" name="numeros" value="<?php echo $numeros ?>">
+          <input type="submit" value="Aceptar">
+          </form>
+        <?php  
+      }
     ?>
     
   </body>
