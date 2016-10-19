@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-        <title>Coloca en las primera posiciones los números primos</title>
+        <title>Coloca el número inicial en el final</title>
         <style>
           td,tr, table{
               border-bottom: 1px solid black;
