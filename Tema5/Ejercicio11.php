@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-        <title>Saca 10 cartas de la bajara española</title>
+        <title>Coloca el número inicial en el final</title>
         <style>
         </style>
         
