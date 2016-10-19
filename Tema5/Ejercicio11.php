@@ -2,43 +2,40 @@
 <html>
   <head>
     <meta charset="UTF-8">
-        <title>Coloca el número inicial en el final</title>
+        <title>Diccionario Español-Ingles</title>
         <style>
         </style>
         
   </head>
   <body>
     <?php
-      $puntuacion = array (
-        'as' => 11, 'dos' => 0, 'tres' => 10, 'cuatro' => 0, 'cinco' => 0,
-        'seis' => 0, 'siete' => 0, 'sota' => 2, 'caballo' => 3, 'rey' => 4);
-    
-      $palo = array ('oros', 'copas', 'bastos', 'espadas');
-    
-      $figura = array ('as', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete',
-        'sota', 'caballo', 'rey');
+      $palabras= array (
+        'puerta' => 'door', 'zapatos' => 'shoes', 'lápiz' =>'pencil', 'cuaderno' => 'notebook', 'ventana' => 'window',
+        'oso' => 'bear', 'agua' => 'water', 'oreja' => 'ear', 'mano' => 'hand', 'teclado' => 'keyboard',
+        'perro' => 'dog', 'gato' => 'cat', 'serpiente' => 'snake', 'hielo' => 'ice', 'libro' => 'book',
+        'ojo' => 'aye', 'árbol' => 'tree', 'bosque' => 'forest', 'fuego' => 'fire', 'cara' => 'face');
+      $palabraEspañol =  $_GET['palabraEspañol'];
       
-    $cartasEchadas = "";
-    $contadorCartasEchadas = 0;
-    $puntosTotales = 0;
-
-    do { //Mientras no haya 10 catas
-      $paloCarta = $palo[rand(0, 3)]; //Genera un palo aleatorio
-      $figuraCarta = $figura[rand(0, 9)]; //Genera una sigura aleatoria
-      $puntosCarta = $puntuacion[$figuraCarta]; //Guarda la puntuación de la carta
-      $nombreCarta = "$figuraCarta de $paloCarta"; //Guardo el nombre completo de la carta
-      if (!in_array($nombreCarta, $cartasEchadas)) { //Si el nombre de la carta no está en las cartas hechadas
-                                                     //Evita que se repitan las cartas
-        echo "$nombreCarta - $puntosCarta puntos<br>"; 
-        $cartasEchadas[] = $nombreCarta; //Guarda en el array cada carta que se heche y no esté repetida
-        $contadorCartasEchadas++;
-        $puntosTotales += $puntosCarta;
+      if(isset($palabraEspañol)){ //Si se ha enviado una palabra
+        $palabraIngles = $palabras[$palabraEspañol]; //Guarda la palabra en ingles
+        if(isset($palabraIngles)){ //Si hay palabra en ingles
+          echo "$palabraEspañol en Inglés es: $palabraIngles";
+        }else{
+          echo "$palabraEspañol no se encuentra en el diccionario.";
+        }
+          
+        
+      }else{ 
+        ?>
+        <form action="Ejercicio11.php" method="get">
+          Introduce una palabra en español.
+          <input type="text" autofocus name="palabraEspañol"><br>
+          <input type="submit" value="Aceptar">
+        </form>
+        <?php
       }
-    } while ($contadorCartasEchadas < 10); 
-
-    echo "<br><b>Total: $puntosTotales puntos</b>";
-
-    ?>
+  
+      ?>
     
   </body>
 
