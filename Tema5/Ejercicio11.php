@@ -14,19 +14,19 @@
         'oso' => 'bear', 'agua' => 'water', 'oreja' => 'ear', 'mano' => 'hand', 'teclado' => 'keyboard',
         'perro' => 'dog', 'gato' => 'cat', 'serpiente' => 'snake', 'hielo' => 'ice', 'libro' => 'book',
         'ojo' => 'aye', 'árbol' => 'tree', 'bosque' => 'forest', 'fuego' => 'fire', 'cara' => 'face');
-      $palabraEspañol =  $_GET['palabraEspañol'];
+      $palabraEspanol =  $_GET['palabraEspanol'];
       
-      if(isset($palabraEspañol)){ //Si se ha enviado una palabra
-        $palabraIngles = $palabras[$palabraEspañol]; //Guarda la palabra en ingles
+      if(isset($palabraEspanol)){ //Si se ha enviado una palabra
+        $palabraIngles = $palabras[$palabraEspanol]; //Guarda la palabra en ingles
         if(isset($palabraIngles)){ //Si hay palabra en ingles
-          echo "$palabraEspañol en Inglés es: $palabraIngles";
+          echo "$palabraEspanol en Inglés es: $palabraIngles";
         }
           
       }else{ 
         ?>
-        <form action="Ejercicio11.php" method="get" id="palabraEnEspañol">
+        <form action="Ejercicio11.php" method="get" id="palabraEnEspanol">
           Selecciona una palabra en español.
-          <select  name="palabraEspañol" form="palabraEnEspañol">
+          <select  name="palabraEspanol" form="palabraEnEspanol">
             <?php
               foreach ($palabras as $key => $value) {
             ?>
