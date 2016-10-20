@@ -20,16 +20,21 @@
         $palabraIngles = $palabras[$palabraEspañol]; //Guarda la palabra en ingles
         if(isset($palabraIngles)){ //Si hay palabra en ingles
           echo "$palabraEspañol en Inglés es: $palabraIngles";
-        }else{
-          echo "$palabraEspañol no se encuentra en el diccionario.";
         }
           
-        
       }else{ 
         ?>
-        <form action="Ejercicio11.php" method="get">
-          Introduce una palabra en español.
-          <input type="text" autofocus name="palabraEspañol"><br>
+        <form action="Ejercicio11.php" method="get" id="palabraEnEspañol">
+          Selecciona una palabra en español.
+          <select  name="palabraEspañol" form="palabraEnEspañol">
+            <?php
+              foreach ($palabras as $key => $value) {
+            ?>
+              <option value="<?php echo $key ?>"><?php echo $key ?></option>
+            <?php
+              }
+            ?>
+          </select> 
           <input type="submit" value="Aceptar">
         </form>
         <?php
