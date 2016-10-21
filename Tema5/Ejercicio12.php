@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
         <title>Traduce 5 palabras del Español al Inglés</title>
         <style>
-        </style>
-        
+        </style>  
   </head>
   <body>
     <?php
@@ -18,16 +17,68 @@
       foreach ($palabras as $clave => $valor) {
         $palabrasEspanol[] = $clave;
       }
+      
+      $palabraIntroducida =  $_GET['palabraIntroducida'];
+      $palabrasString =  $_GET['palabrasString'];
+      $numeroPalabras =  $_GET['numeroPalabras'];
+      $indice = 0;
+      
+      if (!isset($palabraIntroducida)){
+        //Primera visita
+        $palabrasString = "";
+      }
+      if(isset($palabraIntroducida)){
+        $palabrasString.= " " . $palabraIntroducida;
+        $numeroPalabras +=1;
+      }
+      
+      if(!isset($palabraIntroducida)){
+ 
       $palabrasGeneradas = [];
       for ($i = 0; $i < 5; $i++){
         do{
-          $palabra =  $palabrasEspanol[rand(0, 19)];
-        }while(in_array($palabra, $palabrasGeneradas));
-        $palabrasGeneradas[] = $palabra;
-        echo $palabra , "<br>";
+          $palabra =  $palabrasEspanol[rand(0, 19)]; //Guarda una palabra aleatoria
+        }while(in_array($palabra, $palabrasGeneradas)); //Comprueba que esté guardada en el array
+        $palabrasGeneradas[] = $palabra; //Si no está la guarda.
+
+        ?> 
+    
+    <?php
+      
+      }
+    ?> 
+
+      
+    <?php
+ 
+    }
+      
+      if ($numeroPalabras == 5){
+      $palabrasString = substr($palabrasString, 1);
+      $arrayPalabras= explode(" ", $palabrasString);
+      for ($i = 0; $i < 5; $i++){
+        if($palabras[$palabrasGeneradas[$i]] == $arrayPalabras[$i]){
+          $correctas +=1;
+        }
       }
       
-     
+      echo "has acertado " , $correctas , " palabras";
+    }
+    
+    echo  $palabrasGeneradas[$indice];
+    $indice+=1;
+    ?>
+    
+    <form action="Ejercicio12.php" method="get">      
+      <input type="text" autofocus name="palabraIntroducida"><br>
+      <input type="hidden" name="palabrasString" value="<?php echo $palabrasString; ?>">
+      <input type="hidden" name="numeroPalabras" value="<?php echo $numeroPalabras; ?>">
+      <input type="hidden" name="palabraIntroducida" value="<?php echo $palabraIntroducida; ?>">
+      <input type="hidden" name="correctas" value="<?php echo $correctas; ?>">
+      <input type="submit" value="Aceptar">  
+    </form>
+    
+    <?php
       /*echo "<pre>";
 
         var_dump($palabrasEspañol);
