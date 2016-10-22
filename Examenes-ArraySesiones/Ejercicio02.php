@@ -71,15 +71,8 @@
       }
     }
     
-    $indicePar = 0;
-    $indiceImpar = 0;
-    
-    echo $cuentaImpares ," impares";
-    echo "<br>";
-    echo $cuentaPares , " pares";
-    echo "<br>";
-    
-  
+    $indicePar = 0; //índice para el array de números pares
+    $indiceImpar = 0; //índice para el array de números impares
 
     for ($i = 0; $i < 10; $i++){
       if ($esPar && $indicePar < $cuentaPares){ //Si le toca al par y quedan pares 
