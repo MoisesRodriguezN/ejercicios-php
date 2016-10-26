@@ -3,7 +3,11 @@
   if(!isset($_SESSION['cantidadNumeros'])) {
     $_SESSION['cantidadNumeros'] = 0;
     $_SESSION['total'] = 0;
-  }    
+  }
+  
+  if ( $_SESSION['logueado'] == true){
+    
+  
 ?>
 <!DOCTYPE html>
  
@@ -32,13 +36,17 @@
         
       }else{ 
         ?>
-          <form action="Ejercicio03.php" method="post">
+          <form action="Ejercicio04_logueado.php" method="post">
             Introduzca un número: <input type="number" name="numero" autofocus="">
             <input type="submit" value="Introducir">
           </form>
           
         <?php
       }
+  }else{
+    echo "Debes iniciar sesión para poder ver el ejercicio";
+    header("Refresh: 3; url=Ejercicio04.php", true, 303);
+  }
     ?>
   </body>
 </html>

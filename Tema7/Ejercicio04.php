@@ -1,44 +1,42 @@
 <?php
   session_start(); // Inicio de sesión
-  if(!isset($_SESSION['cantidadNumeros'])) {
-    $_SESSION['cantidadNumeros'] = 0;
-    $_SESSION['total'] = 0;
+  if(!isset($_SESSION['logueado'])) {
+    $_SESSION['logueado'] = false;
   }    
 ?>
 <!DOCTYPE html>
  
 <html>
   <head>
-    <title>Media de números</title>
+    <title>Login con sesiones</title>
     <meta charset="UTF-8">
   </head>
   <body>    
-        
+
     <?php
-      $numero = $_POST['numero'];
+      $usuario = $_GET['usuario'];
+      $clave= $_GET['clave'];
       
-      if(!isset($numero)){//Primera visita. Inicia variables
-        $numero = 0;
-      }else if(($numero != -1)){ //Total y cantidad de números
-              $_SESSION['total'] += $numero;
-              $_SESSION['cantidadNumeros'] += 1;
-            }
-      
-      if($_SESSION['total'] > 1000){
-        echo "EL total es:  ", $_SESSION['total'], "<br>";
-        echo "La cantidad de números es: ", $_SESSION['cantidadNumeros'], "<br>";
-        echo "La media de los números introducidos es: ", 
-          round($_SESSION['total']/$_SESSION['cantidadNumeros'], 2);
+      if ((isset($usuario) && isset($clave)) || $_SESSION['logueado']==true){
+        if (($usuario == "moises" && $clave == "miclave123") || $_SESSION['logueado']==true){
+          $_SESSION['logueado'] = true;
+          echo "Inicio Correcto";
+          header("Refresh: 3; url=Ejercicio04_logueado.php", true, 303);
+        }else{
+          echo "Usuario o Contraseña incorrecto";
+          header("Refresh: 3; url=Ejercicio04.php", true, 303);
+        }
+      }else{
         
-      }else{ 
         ?>
-          <form action="Ejercicio03.php" method="post">
-            Introduzca un número: <input type="number" name="numero" autofocus="">
-            <input type="submit" value="Introducir">
+          <form action="Ejercicio04.php" method="get">
+            Usuario: <input type="text" name="usuario" autofocus="">
+            Contraseña: <input type="password" name="clave" >
+            <input type="submit" value="Entrar">
           </form>
-          
         <?php
       }
+      
     ?>
   </body>
 </html>
