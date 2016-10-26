@@ -8,7 +8,7 @@
   <h1><?= $producto['nombre']?></h1>
   <img src="<?= $producto['imagen']?>"/><br>
   Precio: <?= $producto['precio']?>€<br>
- 
+  <?= $producto['detalle']?>
 <?php
  
 ?>
