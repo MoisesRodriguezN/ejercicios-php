@@ -54,7 +54,7 @@ if($accion == "comprar" && isset($cantidad) && is_numeric($cantidad) && $cantida
   if($cantidad > $cantidadAnt){
     $_SESSION["catalogo"][$codigo]["stock"]-=$cantidad-$cantidadAnt;
   }else{
-    $_SESSION["catalogo"][$codigo]["stock"]+=$$cantidadAnt-$cantidad;
+    $_SESSION["catalogo"][$codigo]["stock"]+=$cantidadAnt-$cantidad;
   }
 }
 
@@ -189,7 +189,7 @@ if($accion == "aplicarDescuento"){
             <form action="index.php" method="post">  
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="codCategoria" value="<?= $codCategoria?>"/>
-                       
+              <input type="hidden" name="accion" value="eliminar"/>        
               <input type="submit" value="Eliminar"/>
             </form>
   

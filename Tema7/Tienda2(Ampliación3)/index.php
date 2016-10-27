@@ -12,6 +12,11 @@ $_SESSION['catalogo'] = array (
   "cod3" => array( "nombre" => "HUAWEI P8", "precio" => 350, "imagen" => "imagenes/huaweip8.png", "detalle" => "2GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ", "categoria" => "cod2"),
   "cod4" => array( "nombre" => "SAMSUNGJ5", "precio" => 250, "imagen" => "imagenes/samsungj5.png" , "detalle" => "1GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ", "categoria" => "cod3")
   );
+
+$codCategoria = $_POST['codCategoria'];
+if (!isset($codCategoria)) {
+  $codCategoria = "todas";
+}
 ?>
 <!DOCTYPE html>
  
@@ -30,8 +35,6 @@ $_SESSION['catalogo'] = array (
           <select name="codCategoria">
             <option value="todas">Todas</option>
             <?php
-            // Recuperamos valors del formulario del filtro de categorias
-            $codCategoria = $_POST['codCategoria'];
         
             foreach ($_SESSION['categoria'] as $codigo => $nombre) {
             ?>
