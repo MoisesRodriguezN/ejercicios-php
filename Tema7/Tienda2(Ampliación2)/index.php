@@ -1,13 +1,6 @@
 <?php
 session_start();
 include 'vars.php';
-
- $_SESSION['catalogo'] = array (
-        "cod1" => array( "nombre" => "Samsung galaxy s7", "precio" => 720, "imagen" => "imagenes/galaxy7.png", "detalle" => "4GB RAM 32GB INTERNA CPU QUAD CORE 2.2GHZ"),
-        "cod2" => array( "nombre" => "LG G4", "precio" => 430, "imagen" => "imagenes/lg4.png", "detalle" => "3GB RAM 16GB INTERNA CPU QUAD CORE 1.8GHZ"),
-        "cod3" => array( "nombre" => "HUAWEI P8", "precio" => 350, "imagen" => "imagenes/huaweip8.png", "detalle" => "2GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ"),
-        "cod4" => array( "nombre" => "SAMSUNGJ5", "precio" => 250, "imagen" => "imagenes/samsungj5.png" , "detalle" => "1GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ")
-        );
 ?>
 <!DOCTYPE html>
  
@@ -25,11 +18,10 @@ include 'vars.php';
     
         foreach ($catalogo as $codigo => $producto) {
           ?>
-          <a id="<?= $codigo?>">
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
             Precio: <?= $producto['precio']?>€<br>
-            <form action="index.php#<?= $codigo?>" method="post"> <!--Formulario de compra-->
+            <form action="index.php" method="post"> <!--Formulario de compra-->
               <input type="number" min="1" name="cantidad" value="1" required="true"/>
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="accion" value="comprar"/>
@@ -86,12 +78,10 @@ include 'vars.php';
           $producto = $catalogo[$codigo];
           $total += $producto['precio']*$cantidad;
           ?>
-            <a id="<?=compra.$codigo?>">
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
             Precio: <?= $producto['precio']?>€<br>
-            
-            <form action="index.php#<?=compra.$codigo?>" method="post">  
+            <form action="index.php" method="post">  
               Cantidad: <input type="number" min="0" name="cantidad" value="<?= $cantidad?>" required="true"/> <br>
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="accion" value="actualizar"/>
