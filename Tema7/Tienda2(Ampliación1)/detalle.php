@@ -1,8 +1,8 @@
 <?php
-  include 'vars.php';
-  
+  session_start();
+
   $codigo = $_POST["codigo"];
-  $producto = $catalogo[$codigo];
+  $producto = $_SESSION['catalogo'][$codigo];
   ?>
 
   <h1><?= $producto['nombre']?></h1>

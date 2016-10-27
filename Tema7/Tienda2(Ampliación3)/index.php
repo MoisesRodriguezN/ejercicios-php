@@ -1,11 +1,16 @@
 <?php
 session_start();
+$_SESSION['categoria'] = array (
+  "cod1" => "Android",
+  "cod2" => "Windows Phone",
+  "cod3" => "Iphone"
+  );
 
 $_SESSION['catalogo'] = array (
-  "cod1" => array( "nombre" => "Samsung galaxy s7", "precio" => 720, "imagen" => "imagenes/galaxy7.png", "detalle" => "4GB RAM 32GB INTERNA CPU QUAD CORE 2.2GHZ"),
-  "cod2" => array( "nombre" => "LG G4", "precio" => 430, "imagen" => "imagenes/lg4.png", "detalle" => "3GB RAM 16GB INTERNA CPU QUAD CORE 1.8GHZ"),
-  "cod3" => array( "nombre" => "HUAWEI P8", "precio" => 350, "imagen" => "imagenes/huaweip8.png", "detalle" => "2GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ"),
-  "cod4" => array( "nombre" => "SAMSUNGJ5", "precio" => 250, "imagen" => "imagenes/samsungj5.png" , "detalle" => "1GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ")
+  "cod1" => array( "nombre" => "Samsung galaxy s7", "precio" => 720, "imagen" => "imagenes/galaxy7.png", "detalle" => "4GB RAM 32GB INTERNA CPU QUAD CORE 2.2GHZ", "categoria" => "cod1"),
+  "cod2" => array( "nombre" => "LG G4", "precio" => 430, "imagen" => "imagenes/lg4.png", "detalle" => "3GB RAM 16GB INTERNA CPU QUAD CORE 1.8GHZ", "categoria" => "cod1"),
+  "cod3" => array( "nombre" => "HUAWEI P8", "precio" => 350, "imagen" => "imagenes/huaweip8.png", "detalle" => "2GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ", "categoria" => "cod2"),
+  "cod4" => array( "nombre" => "SAMSUNGJ5", "precio" => 250, "imagen" => "imagenes/samsungj5.png" , "detalle" => "1GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ", "categoria" => "cod3")
   );
 ?>
 <!DOCTYPE html>
@@ -14,24 +19,51 @@ $_SESSION['catalogo'] = array (
   <head>
     <title>Tienda de Móviles</title>
     <meta charset="UTF-8">
-    <
+    <link rel="stylesheet" type="text/css" href="css.css"/>
   </head>
   <body>    
-    <table style="border: 2px; margin: 0px 30px 0px 30px;">
-      <tr>
-        <td>
-
+      <div id="contenedor">
+          <div id="compraProducto">
+              <div id="productos">
+      <h1>Tienda de smartphones</h1>
+       <form action="index.php" method="post">
+          <select name="codCategoria">
+            <option value="todas">Todas</option>
+            <?php
+            // Recuperamos valors del formulario del filtro de categorias
+            $codCategoria = $_POST['codCategoria'];
+        
+            foreach ($_SESSION['categoria'] as $codigo => $nombre) {
+            ?>
+            <option <?= $codCategoria == $codigo ? "selected" : "" ?> value="<?= $codigo ?>"><?= $nombre ?></option>
+            
+            <?php
+            }
+            ?>
+            
+            <input type="submit" value="Filtrar"/>
+          </select> 
+       </form>
     <?php
     
+        
+        
+        // Mostrar productos
         foreach ($_SESSION['catalogo'] as $codigo => $producto) {
+          if(!isset($codCategoria) || $producto['categoria'] == $codCategoria || $codCategoria == "todas"){
+            
+          
           ?>
+          <div class="productoIndividual">        
           <a id="<?= $codigo?>">
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
             Precio: <?= $producto['precio']?>€<br>
             <form action="index.php#<?= $codigo?>" method="post"> <!--Formulario de compra-->
               <input type="number" min="1" name="cantidad" value="1" required="true"/>
+              <br><br>
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
+              <input type="hidden" name="codCategoria" value="<?= $codCategoria?>"/>
               <input type="hidden" name="accion" value="comprar"/>
               <input type="submit"  value="Comprar"/>
             </form>
@@ -39,14 +71,16 @@ $_SESSION['catalogo'] = array (
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="submit"  value="Detalle"/>
             </form>
+          </div>
           <?php
+          }
         }
         ?>
-        </td>
-        <td>
+        </div>
+        <div id="carrito">
           
         <?php
-      //recuperamos valores del formulario
+      //recuperamos valores del formulario de compra y del carrito
       $codigo = $_POST["codigo"];
       $accion = $_POST["accion"];
       $cantidad = $_POST["cantidad"];
@@ -80,12 +114,19 @@ $_SESSION['catalogo'] = array (
       // Mostrar carrito
       $vacio = true;
       $total = 0;
+      echo "<h1> CARRITO DE LA COMPRA</h1>";
+      ?>
+      <div class="divIcon">
+            <img class="icon" src="imagenes/carrito.png">
+      </div>
+      <?php
       foreach ($_SESSION["carrito"] as $codigo => $cantidad) {
         if($cantidad > 0){
           $vacio = false;
           $producto = $_SESSION['catalogo'][$codigo];
           $total += $producto['precio']*$cantidad;
           ?>
+
             <a id="<?=compra.$codigo?>">
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
@@ -94,12 +135,14 @@ $_SESSION['catalogo'] = array (
             <form action="index.php#<?=compra.$codigo?>" method="post">  
               Cantidad: <input type="number" min="0" name="cantidad" value="<?= $cantidad?>" required="true"/> <br>
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
+              <input type="hidden" name="codCategoria" value="<?= $codCategoria?>"/>
               <input type="hidden" name="accion" value="actualizar"/>
               <input type="submit" value="Actualizar"/>
             </form>
             <form action="index.php" method="post">  
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
-              <input type="hidden" name="accion" value="eliminar"/>
+              <input type="hidden" name="codCategoria" value="<?= $codCategoria?>"/>
+              <input type="hidden" name="accion" value="eliminar"/>           
               <input type="submit" value="Eliminar"/>
             </form>
 
@@ -108,19 +151,20 @@ $_SESSION['catalogo'] = array (
       }
      
       if($vacio){
-          echo "<h2>Carrito vacio</h2>";
+          echo " <h3> El carrito está vacio </h3>";
       }else{
         echo "<br><br>total: ", $total, "€";
         ?>
           <form action="index.php" method="post">  
             <input type="hidden" name="accion" value="eliminarTodo"/>
-          <input type="submit"  value="Vaciar carrito"/>
+            <input type="hidden" name="codCategoria" value="<?= $codCategoria?>"/>
+          <input type="submit" id="vaciarCarrito" value="Vaciar carrito"/>
           </form>
        <?php
      }
     ?>
-        </td>
-      </tr>
-    </table>
+            </div>
+          </div>
+      </div>
   </body>
 </html>

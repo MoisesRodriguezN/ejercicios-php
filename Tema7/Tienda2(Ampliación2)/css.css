@@ -1,0 +1,33 @@
+body{
+    background-color: aquamarine;
+}
+#carrito{
+  float: right;
+  width: 49%;
+  text-align: center;
+  background-color: aqua;
+  box-shadow: inset 0px 0px 10px black;
+}
+
+.icon{
+    width: 100px;
+}
+
+#productos{
+  float: left;    
+  width: 49%;;
+  text-align: center;
+  background-color: aqua; 
+  margin-bottom: 5%;
+  box-shadow: inset 0px 0px 10px black;
+}
+
+.productoIndividual{
+    display: inline-block;
+    padding-bottom: 10%;
+    padding-right: 6%; 
+}
+
+#vaciarCarrito{
+  margin-bottom: 30px;
+}

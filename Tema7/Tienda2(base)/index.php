@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 $_SESSION['catalogo'] = array (
   "cod1" => array( "nombre" => "Samsung galaxy s7", "precio" => 720, "imagen" => "imagenes/galaxy7.png", "detalle" => "4GB RAM 32GB INTERNA CPU QUAD CORE 2.2GHZ"),
   "cod2" => array( "nombre" => "LG G4", "precio" => 430, "imagen" => "imagenes/lg4.png", "detalle" => "3GB RAM 16GB INTERNA CPU QUAD CORE 1.8GHZ"),
@@ -14,23 +13,25 @@ $_SESSION['catalogo'] = array (
   <head>
     <title>Tienda de Móviles</title>
     <meta charset="UTF-8">
-    <
+    <link rel="stylesheet" type="text/css" href="css.css"/>
   </head>
   <body>    
-    <table style="border: 2px; margin: 0px 30px 0px 30px;">
-      <tr>
-        <td>
-
+      <div id="contenedor">
+          <div id="compraProducto">
+              <div id="productos">
+      <h1>Tienda de smartphones</h1>
     <?php
     
         foreach ($_SESSION['catalogo'] as $codigo => $producto) {
           ?>
+          <div class="productoIndividual">        
           <a id="<?= $codigo?>">
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
             Precio: <?= $producto['precio']?>€<br>
             <form action="index.php#<?= $codigo?>" method="post"> <!--Formulario de compra-->
               <input type="number" min="1" name="cantidad" value="1" required="true"/>
+              <br><br>
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="accion" value="comprar"/>
               <input type="submit"  value="Comprar"/>
@@ -39,11 +40,12 @@ $_SESSION['catalogo'] = array (
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="submit"  value="Detalle"/>
             </form>
+          </div>
           <?php
         }
         ?>
-        </td>
-        <td>
+        </div>
+        <div id="carrito">
           
         <?php
       //recuperamos valores del formulario
@@ -63,8 +65,6 @@ $_SESSION['catalogo'] = array (
       //Si mando por formulario acción comprar, 
       if($accion == "comprar" && isset($cantidad) && is_numeric($cantidad) && $cantidad > 0){
         $_SESSION["carrito"][$codigo]+=$cantidad;
-      }else if($accion == "actualizar"){
-        $_SESSION["carrito"][$codigo]=$cantidad;
       }
 
       if($accion == "eliminar"){
@@ -80,23 +80,25 @@ $_SESSION['catalogo'] = array (
       // Mostrar carrito
       $vacio = true;
       $total = 0;
+      echo "<h1> CARRITO DE LA COMPRA</h1>";
+      ?>
+      <div class="divIcon">
+            <img class="icon" src="imagenes/carrito.png">
+      </div>
+      <?php
       foreach ($_SESSION["carrito"] as $codigo => $cantidad) {
         if($cantidad > 0){
           $vacio = false;
           $producto = $_SESSION['catalogo'][$codigo];
           $total += $producto['precio']*$cantidad;
           ?>
+
             <a id="<?=compra.$codigo?>">
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
             Precio: <?= $producto['precio']?>€<br>
-            
-            <form action="index.php#<?=compra.$codigo?>" method="post">  
-              Cantidad: <input type="number" min="0" name="cantidad" value="<?= $cantidad?>" required="true"/> <br>
-              <input type="hidden" name="codigo" value="<?= $codigo?>"/>
-              <input type="hidden" name="accion" value="actualizar"/>
-              <input type="submit" value="Actualizar"/>
-            </form>
+            Cantidad: <?= $cantidad?><br>
+           
             <form action="index.php" method="post">  
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="accion" value="eliminar"/>
@@ -108,19 +110,16 @@ $_SESSION['catalogo'] = array (
       }
      
       if($vacio){
-          echo "<h2>Carrito vacio</h2>";
+          echo " <h3> El carrito está vacio </h3>";
       }else{
         echo "<br><br>total: ", $total, "€";
         ?>
-          <form action="index.php" method="post">  
-            <input type="hidden" name="accion" value="eliminarTodo"/>
-          <input type="submit"  value="Vaciar carrito"/>
-          </form>
+          
        <?php
      }
     ?>
-        </td>
-      </tr>
-    </table>
+            </div>
+          </div>
+      </div>
   </body>
 </html>
