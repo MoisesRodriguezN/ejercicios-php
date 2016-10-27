@@ -5,7 +5,6 @@ $_SESSION['categoria'] = array (
   "cod2" => "Windows Phone",
   "cod3" => "Iphone"
   );
-
 if (!isset($_SESSION["descuentos"])){
   $_SESSION['descuentos'] = array (
     "DESCUENTO5" => 5,
@@ -13,7 +12,6 @@ if (!isset($_SESSION["descuentos"])){
     "DESCUENTO50" => 50,
     );
 }
-
 if (!isset($_SESSION["catalogo"])){
   $_SESSION['catalogo'] = array (
     "cod1" => array( "nombre" => "Samsung galaxy s7", "precio" => 720, "imagen" => "imagenes/galaxy7.png", "detalle" => "4GB RAM 32GB INTERNA CPU QUAD CORE 2.2GHZ", "categoria" => "cod1", "stock" => 4),
@@ -22,7 +20,6 @@ if (!isset($_SESSION["catalogo"])){
     "cod4" => array( "nombre" => "SAMSUNGJ5", "precio" => 250, "imagen" => "imagenes/samsungj5.png" , "detalle" => "1GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ", "categoria" => "cod3","stock" => 4)
     );
 }
-
 // Recuperamos valors del formulario del filtro de categorias
 $codCategoria = $_POST['codCategoria'];
 if (!isset($codCategoria)) {
@@ -34,7 +31,6 @@ $codigo = $_POST["codigo"];
 $accion = $_POST["accion"];
 $cantidad = $_POST["cantidad"];
 $descuento = $_POST["descuento"];
-
 if (!isset($_SESSION["carrito"])){
   //Primera visita
   $_SESSION["carrito"] = array(
@@ -57,13 +53,11 @@ if($accion == "comprar" && isset($cantidad) && is_numeric($cantidad) && $cantida
     $_SESSION["catalogo"][$codigo]["stock"]+=$cantidadAnt-$cantidad;
   }
 }
-
 if($accion == "eliminar"){
   $cantidadAnt = $_SESSION["carrito"][$codigo];
   $_SESSION["catalogo"][$codigo]["stock"]+=$cantidadAnt;
   $_SESSION["carrito"][$codigo] = 0;
 }
-
 if($accion == "eliminarTodo"){
   foreach ($_SESSION["carrito"] as $codigo => $cantidad) {
     $cantidadAnt = $_SESSION["carrito"][$codigo];
@@ -71,7 +65,6 @@ if($accion == "eliminarTodo"){
     $_SESSION["carrito"][$codigo] = 0;
   }
 }
-
 if($accion == "aplicarDescuento"){
   $_SESSION["descuentoAplicado"] = $descuento;
 }
@@ -189,6 +182,7 @@ if($accion == "aplicarDescuento"){
             <form action="index.php" method="post">  
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="codCategoria" value="<?= $codCategoria?>"/>
+              <input type="hidden" name="descuento" value="<?= $_SESSION["descuentoAplicado"] = $descuento?>"/>
               <input type="hidden" name="accion" value="eliminar"/>        
               <input type="submit" value="Eliminar"/>
             </form>

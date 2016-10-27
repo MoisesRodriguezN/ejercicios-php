@@ -45,7 +45,7 @@ if($accion == "comprar" && isset($cantidad) && is_numeric($cantidad) && $cantida
   if($cantidad > $cantidadAnt){
     $_SESSION["catalogo"][$codigo]["stock"]-=$cantidad-$cantidadAnt;
   }else{
-    $_SESSION["catalogo"][$codigo]["stock"]+=$$cantidadAnt-$cantidad;
+    $_SESSION["catalogo"][$codigo]["stock"]+=$cantidadAnt-$cantidad;
   }
 }
 
