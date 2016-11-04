@@ -40,7 +40,7 @@
             </form>
           </td>
           <td>
-            <form action="modificaCLiente.php" method="post">
+            <form action="modificaCliente.php" method="post">
               <input type="hidden" name="dni" value="<?= $cliente->dni ?>">
               <input type="hidden" name="nombre" value="<?= $cliente->nombre ?>">
               <input type="hidden" name="direccion" value="<?= $cliente->direccion ?>">
