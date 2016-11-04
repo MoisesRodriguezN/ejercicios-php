@@ -13,21 +13,28 @@
             die ("Error: " . $e->getMessage());
         }
         
-        $consulta = $conexion->query("SELECT dni FROM cliente WHERE dni=".$_POST['dni']);
-        
-        if ($consulta->rowCount() > 0) {
-        ?>
-          Ya existe un cliente con DNI <?= $_POST['dni'] ?><br>
-          Por favor, vuelva a la <a href="index.php">página de alta de cliente</a>.
-        <?php
+        //Comprueba que no hay ningún campo vacio
+        if(empty($_POST[dni] && $_POST[nombre] && $_POST[direccion]&& $_POST[telefono])){
+          echo "Debes rellenar todos los campos";
+          header( "refresh:3;url=index.php" ); //Redirecciona  a la página principal.
         }else{
-          $insercion = "INSERT INTO cliente (dni, nombre, direccion, telefono) VALUES ('$_POST[dni]',"
-            . "'$_POST[nombre]','$_POST[direccion]','$_POST[telefono]')";
-          $conexion->exec($insercion);
-          echo "Cliente dado de alta correctamente.";
-          header( "refresh:3;url=index.php" );
-          $conexion->close();
-          }
+          $consulta = $conexion->query("SELECT dni FROM cliente WHERE dni=".$_POST['dni']);
+
+          if ($consulta->rowCount() > 0) {
+            header( "refresh:3;url=index.php" );
+          ?>
+            Ya existe un cliente con DNI <?= $_POST['dni'] ?><br>
+            Por favor, vuelva a la <a href="index.php">página de alta de cliente</a>.
+          <?php
+          }else{
+            $insercion = "INSERT INTO cliente (dni, nombre, direccion, telefono) VALUES ('$_POST[dni]',"
+              . "'$_POST[nombre]','$_POST[direccion]','$_POST[telefono]')";
+            $conexion->exec($insercion);
+            echo "Cliente dado de alta correctamente.";
+            header( "refresh:3;url=index.php" );
+            $conexion->close();
+            }
+        }
           ?> 
   </body>
 </html>
