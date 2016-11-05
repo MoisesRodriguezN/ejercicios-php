@@ -1,11 +1,5 @@
 <?php
 session_start();
-$_SESSION['catalogo'] = array (
-  "cod1" => array( "nombre" => "Samsung galaxy s7", "precio" => 720, "imagen" => "imagenes/galaxy7.png", "detalle" => "4GB RAM 32GB INTERNA CPU QUAD CORE 2.2GHZ"),
-    "cod2" => array( "nombre" => "LG G4", "precio" => 430, "imagen" => "imagenes/lg4.png", "detalle" => "3GB RAM 16GB INTERNA CPU QUAD CORE 1.8GHZ"),
-  "cod3" => array( "nombre" => "HUAWEI P8", "precio" => 350, "imagen" => "imagenes/huaweip8.png", "detalle" => "2GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ"),
-  "cod4" => array( "nombre" => "SAMSUNGJ5", "precio" => 250, "imagen" => "imagenes/samsungj5.png" , "detalle" => "1GB RAM 16GB INTERNA CPU QUAD CORE 1.6GHZ")
-  );
 ?>
 <!DOCTYPE html>
  
@@ -21,23 +15,31 @@ $_SESSION['catalogo'] = array (
               <div id="productos">
       <h1>Tienda de smartphones</h1>
     <?php
-    
-        foreach ($_SESSION['catalogo'] as $codigo => $producto) {
+      try {
+          $conexion = new PDO("mysql:host=localhost;dbname=tienda;charset=utf8", "root", "root");
+      } catch (PDOException $e) {
+          echo "No se ha podido establecer conexión con el servidor de bases de datos.<br>";
+          die ("Error: " . $e->getMessage());
+      }
+     
+      $consulta = $conexion->query("SELECT * FROM producto ORDER BY Nombre ASC");
+        
+          while ($producto = $consulta->fetchObject()) {
           ?>
           <div class="productoIndividual">        
-          <a id="<?= $codigo?>">
-            <img src="<?= $producto['imagen']?>"/><br>
-            <?= $producto['nombre']?><br>
-            Precio: <?= $producto['precio']?>€<br>
-            <form action="index.php#<?= $codigo?>" method="post"> <!--Formulario de compra-->
+          <a id="<?= $producto->codProducto?>">
+            <img src="<?= $producto->imagen?>"/><br>
+            <?= $producto->nombre?><br>
+            Precio: <?= $producto->precio?>€<br>
+            <form action="index.php#<?= $producto->codProducto?>" method="post"> <!--Formulario de compra-->
               <input type="number" min="1" name="cantidad" value="1" required="true"/>
               <br><br>
-              <input type="hidden" name="codigo" value="<?= $codigo?>"/>
+              <input type="hidden" name="codigo" value="<?= $producto->codProducto?>"/>
               <input type="hidden" name="accion" value="comprar"/>
               <input type="submit"  value="Comprar"/>
             </form>
             <form action="detalle.php" method="post">  <!--Formulario de detalles-->
-              <input type="hidden" name="codigo" value="<?= $codigo?>"/>
+              <input type="hidden" name="codigo" value="<?= $producto->codProduto?>"/>
               <input type="submit"  value="Detalle"/>
             </form>
           </div>
@@ -65,8 +67,6 @@ $_SESSION['catalogo'] = array (
       //Si mando por formulario acción comprar, 
       if($accion == "comprar" && isset($cantidad) && is_numeric($cantidad) && $cantidad > 0){
         $_SESSION["carrito"][$codigo]+=$cantidad;
-      }else if($accion == "actualizar"){
-        $_SESSION["carrito"][$codigo]=$cantidad;
       }
 
       if($accion == "eliminar"){
@@ -99,13 +99,8 @@ $_SESSION['catalogo'] = array (
             <img src="<?= $producto['imagen']?>"/><br>
             <?= $producto['nombre']?><br>
             Precio: <?= $producto['precio']?>€<br>
-            
-            <form action="index.php#<?=compra.$codigo?>" method="post">  
-              Cantidad: <input type="number" min="0" name="cantidad" value="<?= $cantidad?>" required="true"/> <br>
-              <input type="hidden" name="codigo" value="<?= $codigo?>"/>
-              <input type="hidden" name="accion" value="actualizar"/>
-              <input type="submit" value="Actualizar"/>
-            </form>
+            Cantidad: <?= $cantidad?><br>
+           
             <form action="index.php" method="post">  
               <input type="hidden" name="codigo" value="<?= $codigo?>"/>
               <input type="hidden" name="accion" value="eliminar"/>
@@ -121,10 +116,7 @@ $_SESSION['catalogo'] = array (
       }else{
         echo "<br><br>total: ", $total, "€";
         ?>
-          <form action="index.php" method="post">  
-            <input type="hidden" name="accion" value="eliminarTodo"/>
-          <input type="submit" id="vaciarCarrito" value="Vaciar carrito"/>
-          </form>
+          
        <?php
      }
     ?>
