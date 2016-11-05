@@ -39,7 +39,7 @@ session_start();
               <input type="submit"  value="Comprar"/>
             </form>
             <form action="detalle.php" method="post">  <!--Formulario de detalles-->
-              <input type="hidden" name="codigo" value="<?= $producto->codProduto?>"/>
+              <input type="hidden" name="codigo" value="<?= $producto->codProducto?>"/>
               <input type="submit"  value="Detalle"/>
             </form>
           </div>
@@ -58,10 +58,10 @@ session_start();
       if (!isset($_SESSION["carrito"])){
         //Primera visita
         $_SESSION["carrito"] = array(
-            "cod1" => 0, //Código => Cantidad
-            "cod2" => 0,
-            "cod3" => 0,
-            "cod4" => 0
+            "1" => 0, //Código => Cantidad
+            "2" => 0,
+            "3" => 0,
+            "4" => 0
         );
       }
       //Si mando por formulario acción comprar, 
@@ -91,14 +91,16 @@ session_start();
       foreach ($_SESSION["carrito"] as $codigo => $cantidad) {
         if($cantidad > 0){
           $vacio = false;
-          $producto = $_SESSION['catalogo'][$codigo];
-          $total += $producto['precio']*$cantidad;
+          $consulta2 = $conexion->query("SELECT * FROM producto WHERE codProducto = '$codigo'");
+          $producto2 = $consulta2->fetchObject();
+          //$producto = $_SESSION['catalogo'][$codigo];
+          $total += $producto2->precio*$cantidad;
           ?>
 
             <a id="<?=compra.$codigo?>">
-            <img src="<?= $producto['imagen']?>"/><br>
-            <?= $producto['nombre']?><br>
-            Precio: <?= $producto['precio']?>€<br>
+            <img src="<?= $producto2->imagen?>"/><br>
+            <?= $producto2->nombre?><br>
+            Precio: <?= $producto2->precio?>€<br>
             Cantidad: <?= $cantidad?><br>
            
             <form action="index.php" method="post">  
@@ -119,7 +121,7 @@ session_start();
           
        <?php
      }
-    ?>
+    ?> 
             </div>
           </div>
       </div>
