@@ -16,9 +16,9 @@
         $accion = $_POST['accion'];
         
         if ($accion == "actualizar"){
-          $modifcaion = $modifica = "UPDATE cliente SET  nombre=\"$_POST[nombre]\", "
+          $modificacion = "UPDATE cliente SET  nombre=\"$_POST[nombre]\", "
             . "direccion=\"$_POST[direccion]\", telefono=\"$_POST[telefono]\" WHERE dni=\"$_POST[dni]\"";
-          $conexion->exec($modifcaion);
+          $conexion->exec($modificacion);
           echo "Cliente actualizado correctamente.";
           header( "refresh:3;url=index.php" );
           $conexion->close();
