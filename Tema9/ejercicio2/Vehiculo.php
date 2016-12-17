@@ -11,17 +11,17 @@ class Vehiculo {
   
   
   public static function getKmTotales() {
-    return Vehiculo::$kmTotales;
+    return self::$kmTotales;
   }
   
   public static function getVehiculosCreados() {
-    return Vehiculo::$vehiculosCreados;
+    return self::$vehiculosCreados;
   }
   
   //Al crear un vehículo, se cumará 1 al contador de Vehiculos Creados
   //Se le pone los km recorridos a 0;
   function __construct() {
-    Vehiculo::$vehiculosCreados++;
+    self::$vehiculosCreados++;
     $this->kmRecorridos = 0;
   }
   
@@ -33,7 +33,7 @@ class Vehiculo {
   //los vehículos.
   public function recorre($km) {
     $this->kmRecorridos += $km;
-    Vehiculo::$kmTotales += $km;
+    self::$kmTotales += $km;
   }
 
 }
