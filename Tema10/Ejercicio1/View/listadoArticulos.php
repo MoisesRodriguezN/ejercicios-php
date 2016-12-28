@@ -10,7 +10,7 @@
             <h1>PROGRAMACIÓN PHP</h1>
             <p>Artículos sobre la programación php</p>
         </header>
-        <p><a href="../Controller/NuevoArticulo.php">Nuevo Artículo</a></p>
+        <p><a href="../Controller/nuevoArticulo.php">Nuevo Artículo</a></p>
         <?php
           foreach($datosArticulos['articulos'] as $articulo)  {
         ?>
@@ -18,6 +18,7 @@
             <h2><?=$articulo->getTitulo()?></h2>
             <p><?=$articulo->getContenido()?></p>
             <p><a href="../Controller/borraArticulo.php?id=<?=$articulo->getId()?>">Borrar Artículo</a></p>
+            <p><a href="../Controller/modificacionArticulo.php?id=<?=$articulo->getId()?>">Modificar Artículo</a></p>
             <p>
               <?php
                 $fecha=$articulo->getFecha();
