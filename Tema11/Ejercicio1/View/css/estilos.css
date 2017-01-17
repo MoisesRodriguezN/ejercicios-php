@@ -1,0 +1,77 @@
+/*--------------Estilos de la página de artículos--------------------*/
+body{
+    background-color: lightblue;
+}
+h1{
+    text-align: center;
+    background-color: khaki;
+}
+
+#subtitulo1{
+    text-align: center;
+    background-color: #c8f08c;
+}
+
+article{
+    width: 50%;
+    background-color: #c8f08c;
+    margin: 10px auto 40px auto;
+    padding: 10px 30px;
+    text-align: justify;
+}
+
+a:link{
+    text-decoration:none;  
+}
+
+a:visited, a:active{
+    color: blue;
+}
+
+a:focus{
+    outline: 0;
+}
+
+.boton{
+    background-color: lightblue;
+    width: 10%;
+    text-align: center;
+    display: inline-block;
+    padding: 6px;
+}
+
+.fecha{
+    background-color: lightblue;
+    padding: 3px;
+}
+
+footer{
+    background-color: khaki;
+    text-align: center;
+}
+
+.boton2{
+    text-align: center;
+    background-color: khaki;
+    width: 10%;
+    padding: 6px;
+    margin: 0 auto;
+}
+
+/*--------------FIN Estilos de la página de artículos--------------------*/
+
+/*--------------Estilos de los formularios--------------------*/
+
+form{
+    margin: 0 auto;
+    text-align: center;
+    width: 40%;
+    background-color: khaki;
+}
+
+.h3form{
+  background-color: #c8f08c;  
+}
+
+
+/*--------------FIN Estilos de los formularios--------------------*/

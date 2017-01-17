@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PROGRAMACIÓN PHP</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../View/css/estilos.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <h1>PROGRAMACIÓN PHP</h1>
+            <h2 id="subtitulo1">Artículos sobre la programación php</h2>
+        </header>
+        <p class="boton2"><a href="../Controller/nuevoArticulo.php">Nuevo Artículo</a></p>
+        {% for articulo in articulos %}
+            <article> 
+                <h2>{{ articulo.titulo }}</h2>
+                <p>{{ articulo.contenido }}</p>
+                <p class="boton"><a href="../Controller/borraArticulo.php?id={{ articulo.id }}">Borrar Artículo</a></p>
+                <p class="boton"><a href="../Controller/modificacionArticulo.php?id={{ articulo.id}}">Modificar Artículo</a></p>
+                <p class="fecha">
+                  {{ articulo.fecha}}
+                </p>
+            </article>
+        {% endfor %}
+        <footer>
+            &copy; Moisés Rodríguez 2016
+        </footer>
+    </body>
+</html>
