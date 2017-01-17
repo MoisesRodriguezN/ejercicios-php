@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block listado %}
+    <p class="boton2"><a href="../Controller/nuevoArticulo.php">Nuevo Artículo</a></p>
+    {% for articulo in articulos %}
+        <article> 
+            <h2>{{ articulo.titulo }}</h2>
+            <p>{{ articulo.contenido }}</p>
+            <p class="boton"><a href="../Controller/borraArticulo.php?id={{ articulo.id }}">Borrar Artículo</a></p>
+            <p class="boton"><a href="../Controller/modificacionArticulo.php?id={{ articulo.id}}">Modificar Artículo</a></p>
+            <p class="fecha">
+                {{ articulo.fecha}}
+            </p>
+        </article>
+    {% endfor %}
+{% endblock %}
